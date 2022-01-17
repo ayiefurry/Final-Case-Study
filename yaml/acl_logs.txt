@@ -1,0 +1,180 @@
+2022-01-17T11:53:49: %UNICON-WARNING: [33mDevice 'CSR1kv' connection 'cli' does not have IP and/or port specified, ignoring[0m[39m
+{
+  "PERMIT-ACCESS": {
+    "aces": {
+      "10": {
+        "actions": {
+          "forwarding": "permit",
+          "logging": "log-none"
+        },
+        "matches": {
+          "l3": {
+            "ipv4": {
+              "destination_network": {
+                "any": {
+                  "destination_network": "any"
+                }
+              },
+              "protocol": "tcp",
+              "source_network": {
+                "192.168.56.0 0.0.0.255": {
+                  "source_network": "192.168.56.0 0.0.0.255"
+                }
+              }
+            }
+          },
+          "l4": {
+            "tcp": {
+              "destination_port": {
+                "operator": {
+                  "operator": "eq",
+                  "port": 80
+                }
+              },
+              "established": false
+            }
+          }
+        },
+        "name": "10"
+      },
+      "20": {
+        "actions": {
+          "forwarding": "permit",
+          "logging": "log-none"
+        },
+        "matches": {
+          "l3": {
+            "ipv4": {
+              "destination_network": {
+                "any": {
+                  "destination_network": "any"
+                }
+              },
+              "protocol": "tcp",
+              "source_network": {
+                "192.168.56.0 0.0.0.255": {
+                  "source_network": "192.168.56.0 0.0.0.255"
+                }
+              }
+            }
+          },
+          "l4": {
+            "tcp": {
+              "destination_port": {
+                "operator": {
+                  "operator": "eq",
+                  "port": 443
+                }
+              },
+              "established": false
+            }
+          }
+        },
+        "name": "20"
+      },
+      "30": {
+        "actions": {
+          "forwarding": "permit",
+          "logging": "log-none"
+        },
+        "matches": {
+          "l3": {
+            "ipv4": {
+              "destination_network": {
+                "any": {
+                  "destination_network": "any"
+                }
+              },
+              "protocol": "icmp",
+              "source_network": {
+                "any": {
+                  "source_network": "any"
+                }
+              }
+            }
+          },
+          "l4": {
+            "icmp": {
+              "established": false,
+              "msg_type": "echo-reply"
+            }
+          }
+        },
+        "name": "30"
+      },
+      "40": {
+        "actions": {
+          "forwarding": "permit",
+          "logging": "log-none"
+        },
+        "matches": {
+          "l3": {
+            "ipv4": {
+              "destination_network": {
+                "any": {
+                  "destination_network": "any"
+                }
+              },
+              "protocol": "tcp",
+              "source_network": {
+                "any": {
+                  "source_network": "any"
+                }
+              }
+            }
+          },
+          "l4": {
+            "tcp": {
+              "destination_port": {
+                "operator": {
+                  "operator": "eq",
+                  "port": 23
+                }
+              },
+              "established": false
+            }
+          }
+        },
+        "name": "40"
+      },
+      "50": {
+        "actions": {
+          "forwarding": "permit",
+          "logging": "log-none"
+        },
+        "matches": {
+          "l3": {
+            "ipv4": {
+              "destination_network": {
+                "any": {
+                  "destination_network": "any"
+                }
+              },
+              "protocol": "tcp",
+              "source_network": {
+                "any": {
+                  "source_network": "any"
+                }
+              }
+            }
+          },
+          "l4": {
+            "tcp": {
+              "destination_port": {
+                "operator": {
+                  "operator": "eq",
+                  "port": 25
+                }
+              },
+              "established": false
+            }
+          }
+        },
+        "name": "50"
+      }
+    },
+    "name": "PERMIT-ACCESS",
+    "type": "ipv4-acl-type"
+  }
+}
+

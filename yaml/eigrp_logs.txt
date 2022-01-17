@@ -1,0 +1,23 @@
+2022-01-17T11:57:45: %UNICON-WARNING: [33mDevice 'CSR1kv' connection 'cli' does not have IP and/or port specified, ignoring[0m[39m
+{
+  "protocols": {
+    "application": {
+      "flushed": 0,
+      "holddown": 0,
+      "incoming_filter_list": "not set",
+      "invalid": 0,
+      "maximum_path": 32,
+      "outgoing_filter_list": "not set",
+      "preference": {
+        "single_value": {
+          "all": 4
+        }
+      },
+      "update_frequency": 0
+    },
+    "eigrp": {
+      "protocol_under_dev": true
+    }
+  }
+}
+

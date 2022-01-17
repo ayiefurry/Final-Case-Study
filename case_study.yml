@@ -1,0 +1,56 @@
+---
+- name: CCNA REVIEW IMPLEMENTING NETWORK AUTOMATION
+  hosts: CSR1kv
+  gather_facts: false
+  connection: local
+
+  tasks:
+      #CONFIGURATION OF ACL
+    - name: ACL CONFIGURATION FOR CSR1KV ROUTER
+      ios_config:
+        lines:
+          - remark Permit inside HTTP and HTTPS traffic
+          - permit tcp 192.168.56.0 0.0.0.255 any eq 80
+          - permit tcp 192.168.56.0 0.0.0.255 any eq 443
+          - remark Permit ICMP
+          - permit icmp any any echo-reply
+          - remark Permit Telnet
+          - permit tcp any any eq telnet
+          - remark Permit SMTP
+          - permit tcp any any eq smtp
+        parents: ip access-list extended PERMIT-ACCESS
+        save_when: modified
+      
+      #CONFIGURATION OF DHCP
+    - name: DHCP CONFIGURATION FOR CSR1KV ROUTER
+      ios_config:
+        lines:
+          - network 192.168.56.0 255.255.255.0
+          - default-router 192.168.56.101
+          - domain-name example.com
+        parents: ip dhcp pool LAN-POOL-1
+        save_when: modified
+
+      #CONFIGURATION OF EIGRP
+    - name: EIGRP CONFIGURATION FOR CSR1KV ROUTER
+      ios_config:
+        lines:
+          - network 172.168.10.1 0.0.0.255
+          - network 10.0.0.0 0.255.255.255
+          - no auto-summary
+        parents: router eigrp 100
+        save_when: modified
+
+      
+      #SHOW RUNNUNG CONFIG
+    - name: Show running configuration
+      ios_command:
+        commands:
+          - show run
+      register: output
+
+      #BACKUP FILE CREATION   
+    - name: Save the running configuration to backup file
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "backups/show_run_back_{{ inventory_hostname }}.txt"
